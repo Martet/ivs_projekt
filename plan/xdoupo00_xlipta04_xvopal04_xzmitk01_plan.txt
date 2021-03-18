@@ -1,0 +1,30 @@
+Kyselé papričky: xdoupo00 (vedoucí týmu), xlipta04, xvopal04, xzmitk01
+IVS - Projekt 2 - Týmová spolupráce - Kalkulačka
+
+•Termíny:
+18.3. plán
+25.3. testy + aritmetické operace
+1.4. gui, ovládání
+8.4. profilling
+15.4. instalátor, makefile
+22.4. uživatelský manuál (manipulace, od/instalace), dokumentace
+28.4. finální ladění, opravy, finální verze produktu
+21.5. instalace + problémy
+24.5. obhajoby
+
+•Přidělení úkolů na projektu jednotlivým řešitelům:
+- xdoupo00: vytvoření knihovny + aritmetické operace, doxygen (dokumentace), generování náhodných čísel
+- xlipta04: uživatelské rozhraní (návrh + realizace), ovládání, prezentace
+- xvopal04: testy, více číselných soustav, manuál
+- xzmitk01: makefile, od/instalátor, profilling, správa repozitáře
+- všichni: mockup budoucí verze, kontrola práce/dodržování termínů
+
+•Zvolené komunikační kanály pro komunikaci v týmu a stanovená pravidla pro komunikaci:
+- dc: vlastní server (main komunikace)
+- doodle (časy schůzek) 
+- 
+
+•Zvolený systém pro správu verzí a hosting + informaci, jak do repozitáře mohou nahlédnout vyučující/cvičíc
+- github.com -> repozitář na githubu (https://github.com/Martet/ivs_projekt), uživateli ivskontrola byl udělen přístup
+
+
