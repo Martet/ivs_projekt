@@ -101,4 +101,4 @@ class TestPOW(unittest.TestCase):
       self.assertRaises(wronginput,POW("ad")
 
 if __name__ == '__main__':
-    unittest.main()
+   unittest.main()
