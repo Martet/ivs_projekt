@@ -4,7 +4,7 @@ import math_library
 
 
 class TestADD(unittest.TestCase):
-   def ADDnuber(self):
+   def ADDnumber(self):
       result=ADD(1.00012, 1.00012 )
       self.assertEqual(result, 1.00024)
       result=ADD(1000000000000, 1000000000000 )
