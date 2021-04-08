@@ -21,10 +21,13 @@ def MUL (x, y):
     else:
         print("Invalid input")
 
-def DIV (x, y): #not exact
+def DIV (x, y):
     if isinstance(x,(int,float)) and isinstance(y,(int,float)):
-        result = x / y
-        print(result)
+        if (x != 0) and (y != 0):
+            result = x / y
+            print(result)
+        else:
+            print("Division by 0")
     else:
         print("Invalid input")
 
