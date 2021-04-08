@@ -2,16 +2,9 @@ import unittest
 from math_library import *
 import math
 
-
-
 class TestADD(unittest.TestCase):
-<<<<<<< HEAD
    def testADDnuber(self):
       result=ADD(1.00012, 1.00012)
-=======
-   def ADDnumber(self):
-      result=ADD(1.00012, 1.00012 )
->>>>>>> a6458ef4011ebc4677e33ac3cb86e363ed2ac09e
       self.assertEqual(result, 1.00024)
       result=ADD(1000000000000, 1000000000000)
       self.assertEqual(result, 2000000000000)
