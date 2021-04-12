@@ -53,7 +53,7 @@ def ROOT(x, y): #nth root
                 result = pow(x, 1/y) * (-1)
                 return result
             else:
-                ValueError("Can't root negative number with postivive exponent")
+                raise ValueError("Can't root negative number with positive even exponent")
         else:
             result = pow(x, 1/y)
             return result
