@@ -1,8 +1,11 @@
-from tkinter import *
-from mathLib import *
+#!/usr/local/bin/python3
+# coding: utf-8
+
+from tkinter import * # pylint: disable=unused-wildcard-import, method-hidden
+from mathLib import * # pylint: disable=unused-wildcard-import, method-hidden
 
 #slovnik pro vymenu znaku operaci za funkce
-operand_dict = {'+': 'ADD', '-': 'SUB', '*': 'MUL', '÷': 'DIV', '^': 'POW', '√': 'ROOT'}
+operand_dict = {'+': 'ADD', '-': 'SUB', '*': 'MUL', '÷': 'DIV', '/': 'DIV', '^': 'POW', '√': 'ROOT'}
 
 #string pro ulozeni posledniho zadavaneho cisla
 in_number = ""
@@ -12,7 +15,7 @@ in_sequence = []
 disp_result = False
 
 root = Tk()
-root. configure(background='black')
+root.configure(background='black')
 root.title("Calculator")
 
 #funkcia pre vypisovanie cisel na vstupe
@@ -44,7 +47,7 @@ def button_CE():
     in_sequence.clear()
 
 #smaze posledni zadane cislo nebo operaci
-def button_delete():
+def button_del():
     global in_number, in_sequence
     if len(in_number) > 0:
         in_number = ""
@@ -77,14 +80,25 @@ def button_compute():
         in_number = ""
     in_sequence.clear()
 
+#callback pro zpracovani zmacknuti klavesy
+def key_event(event):
+    if event.char.isnumeric() or event.char == '.':
+        button_number(event.char)
+    elif event.char in operand_dict:
+        button_operand(event.char)
+    elif event.keysym == "BackSpace":
+        button_del()
+    elif event.keysym == "Return":
+        button_compute()
+
 #vstupne pole
-entry = Entry(root, width=8, borderwidth=10, font=('Helvetica', 80), fg='white', bg='#6F00D2')
+entry = Entry(root, width=8, borderwidth=10, font=('Helvetica', 80), fg='white', bg='#6F00D2', takefocus = 0)
 entry.grid(row=0, column=0, columnspan=4, padx=10, pady=10)
 
 #prvy riadok
 button_random_num = Button(root, text='random number', font=('Helvetica', 20), fg='white', padx=26.5, pady=20, bg='#8600FF')
 button_CE = Button(root, text='CE', font=('Helvetica', 20), fg='white', padx=39, pady=20, bg='#8600FF', command=button_CE)
-button_delete= Button(root, text='delete', font=('Helvetica', 20), fg='white', padx=24, pady=20, bg='#8600FF', command=button_delete)
+button_delete= Button(root, text='delete', font=('Helvetica', 20), fg='white', padx=24, pady=20, bg='#8600FF', command=button_del)
 
 #stlacanie tlacidiel v prvom riadku
 button_random_num.grid(row=1, column=0, columnspan=2)
@@ -109,7 +123,7 @@ button_divise.grid(row=2, column=3)
 button_7 = Button(root, text='7', font=('Helvetica', 20), fg='white', padx=50, pady=20, bg='#9F35FF', command=lambda: button_number(7))
 button_8 = Button(root, text='8', font=('Helvetica', 20), fg='white', padx=50, pady=20, bg='#9F35FF', command=lambda: button_number(8))
 button_9 = Button(root, text='9', font=('Helvetica', 20), fg='white', padx=50, pady=20, bg='#9F35FF', command=lambda: button_number(9))
-button_multiply = Button(root, text='x', font=('Helvetica', 20), fg='white', padx=54, pady=20, bg='#9F35FF', command=lambda: button_operand('*'))
+button_multiply = Button(root, text='*', font=('Helvetica', 20), fg='white', padx=54, pady=20, bg='#9F35FF', command=lambda: button_operand('*'))
 
 #stlacanie tlacidiel v tretom riadku
 button_7.grid(row=3 , column=0)
@@ -155,7 +169,5 @@ button_dot.grid(row=6, column=0)
 button_equal.grid(row=6, column=2, columnspan=2)
 
 
+root.bind("<Key>", key_event) 
 root.mainloop()
-
-
-
