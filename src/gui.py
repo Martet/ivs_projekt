@@ -5,7 +5,7 @@ from tkinter import * # pylint: disable=unused-wildcard-import, method-hidden
 from mathLib import * # pylint: disable=unused-wildcard-import, method-hidden
 
 #slovnik pro vymenu znaku operaci za funkce
-operand_dict = {'+': 'ADD', '-': 'SUB', '*': 'MUL', '÷': 'DIV', '/': 'DIV', '^': 'POW', '√': 'ROOT'}
+operand_dict = {'+': 'ADD', '-': 'SUB', '*': 'MUL', '÷': 'DIV', '/': 'DIV', '^': 'POW', '√': 'ROOT', '!': 'FACT', 'abs': 'ABS', 'rand': 'RAND'}
 
 #string pro ulozeni posledniho zadavaneho cisla
 in_number = ""
@@ -18,6 +18,12 @@ root = Tk()
 root.configure(background='black')
 root.title("Calculator")
 
+#funkce pro vypsani zadanych cisel a operatoru
+def print_disp():
+    entry.delete(0, END)
+    entry.insert(0, ''.join(in_sequence))
+    entry.insert(END, in_number)
+
 #funkcia pre vypisovanie cisel na vstupe
 def button_number(number):
     global in_number, disp_result
@@ -25,8 +31,8 @@ def button_number(number):
         entry.delete(0, END)
         in_number = ""
         disp_result = False
-    entry.insert(END, str(number))
     in_number += str(number)
+    print_disp()
 
 #pridani nove operace, ulozi predchozi zadane cislo
 def button_operand(operand):
@@ -34,10 +40,27 @@ def button_operand(operand):
     if entry.get() == "ERROR":
         entry.delete(0, END)
     disp_result = False
-    entry.insert(END, operand)
-    in_sequence.append(in_number if len(in_number) > 0 else '0')
-    in_sequence.append(operand)
-    in_number = ""
+    if len(in_number) == 0:
+        if operand == '-':
+            in_number = '-'
+            entry.insert(END, in_number)
+            return
+        else:
+            in_number = '0'
+
+    if operand == '!' or operand == 'abs':
+        in_number = operand_dict.get(operand) + '(' + in_number + ')'
+    elif operand == 'rand':
+        if in_number == '0':
+            in_number = operand_dict.get(operand) + '()'
+        else:
+            in_number += operand_dict.get(operand) + '()'
+    else:
+        in_sequence.append(in_number)
+        in_sequence.append(operand)
+        in_number = ""
+
+    print_disp()
 
 #funkcia pre vymazanie vstupu
 def button_CE():
@@ -54,8 +77,7 @@ def button_del():
     else:
         if len(in_sequence) > 0:
             in_sequence.pop()
-    entry.delete(0, END)
-    entry.insert(0, ''.join(in_sequence))
+    print_disp()
 
 #po stisknuti = provede vypocet
 def button_compute():
@@ -96,7 +118,7 @@ entry = Entry(root, width=8, borderwidth=10, font=('Helvetica', 80), fg='white',
 entry.grid(row=0, column=0, columnspan=4, padx=10, pady=10)
 
 #prvy riadok
-button_random_num = Button(root, text='random number', font=('Helvetica', 20), fg='white', padx=26.5, pady=20, bg='#8600FF')
+button_random_num = Button(root, text='random number', font=('Helvetica', 20), fg='white', padx=26.5, pady=20, bg='#8600FF', command=lambda: button_operand('rand'))
 button_CE = Button(root, text='CE', font=('Helvetica', 20), fg='white', padx=39, pady=20, bg='#8600FF', command=button_CE)
 button_delete= Button(root, text='delete', font=('Helvetica', 20), fg='white', padx=24, pady=20, bg='#8600FF', command=button_del)
 
@@ -107,7 +129,7 @@ button_delete.grid(row=1, column=3)
 
 
 #druhy riadok
-button_abs = Button(root, text='|abs|', font=('Helvetica', 20), fg='white', padx=29, pady=20, bg='#921AFF')
+button_abs = Button(root, text='|abs|', font=('Helvetica', 20), fg='white', padx=29, pady=20, bg='#921AFF', command=lambda: button_operand('abs'))
 button_square = Button(root, text='x^n', font=('Helvetica', 20), fg='white', padx=37, pady=20, bg='#921AFF', command=lambda: button_operand('^'))
 button_sqrt = Button(root, text='√', font=('Helvetica', 20), fg='white', padx=52, pady=20, bg='#921AFF', command=lambda: button_operand('√'))
 button_divise = Button(root, text='÷', font=('Helvetica', 20), fg='white', padx=53, pady=20, bg='#921AFF', command=lambda: button_operand('÷'))
