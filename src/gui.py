@@ -2,7 +2,7 @@
 # coding: utf-8
 
 from tkinter import * # pylint: disable=unused-wildcard-import, method-hidden
-from mathLib import * # pylint: disable=unused-wildcard-import, method-hidden
+from math import * # pylint: disable=unused-wildcard-import, method-hidden
 
 #slovnik pro vymenu znaku operaci za funkce
 operand_dict = {'+': 'ADD', '-': 'SUB', '*': 'MUL', '÷': 'DIV', '/': 'DIV', '^': 'POW', '√': 'ROOT', '!': 'FACT', 'abs': 'ABS', 'rand': 'RAND'}
@@ -127,6 +127,10 @@ def switch():
         button_8["state"] = "disabled"
         button_9["state"] = "disabled"
         button_multiply["state"] = "disabled"
+        button_4["state"] = "disabled"
+        button_5["state"] = "disabled"
+        button_6["state"] = "disabled"
+        button_substract["state"] = "disabled"
         button_2["state"] = "disabled"
         button_3["state"] = "disabled"
         button_add["state"] = "disabled"
@@ -144,6 +148,10 @@ def switch():
         button_8["state"] = "normal"
         button_9["state"] = "normal"
         button_multiply["state"] = "normal"
+        button_4["state"] = "normal"
+        button_5["state"] = "normal"
+        button_6["state"] = "normal"
+        button_substract["state"] = "normal"
         button_2["state"] = "normal"
         button_3["state"] = "normal"
         button_add["state"] = "normal"
@@ -223,10 +231,10 @@ button_3 = Button(root, text='3', font=('Helvetica', 20), fg='white', padx=50, p
 button_add = Button(root, text='+', font=('Helvetica', 20), fg='white', padx=52, pady=20, bg='#CA8EFF', command=lambda: button_operand('+'))
 
 #stlacanie tlacidiel v siestom riadku
-button_1.grid(row=5 , column=0)
-button_2.grid(row=5 , column=1)
-button_3.grid(row=5 , column=2)
-button_add.grid(row=5, column=3)
+button_1.grid(row=6 , column=0)
+button_2.grid(row=6 , column=1)
+button_3.grid(row=6 , column=2)
+button_add.grid(row=6, column=3)
 
 
 #siedmy-posledny riadok
@@ -235,9 +243,9 @@ button_dot = Button(root, text='.', font=('Helvetica', 20), fg='white', padx=54,
 button_equal = Button(root, text='=', font=('Helvetica', 20), fg='white', padx=115, pady=20, bg='#d3a4ff', command=button_compute)
 
 #stlacanie tlacidiel v siedmom-poslednom riadku
-button_0.grid(row=6, column=1)
-button_dot.grid(row=6, column=0)
-button_equal.grid(row=6, column=2, columnspan=2)
+button_0.grid(row=7, column=1)
+button_dot.grid(row=7, column=0)
+button_equal.grid(row=7, column=2, columnspan=2)
 
 
 root.bind("<Key>", key_event)
