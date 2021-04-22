@@ -147,8 +147,8 @@ class TestFACT(unittest.TestCase):
    def testFACTnumber(self):
       result = FACT(5)
       self.assertEqual(result,120)
-      result = FACT(-15)
-      with self.assertRaises(TypeError):
+      with self.assertRaises(ValueError):
+         FACT(-15)
       result = FACT(14)
       self.assertEqual(result,87178291200)
       result = FACT(0)
@@ -167,7 +167,7 @@ class TestABS(unittest.TestCase):
       result = ABS(0)
       self.assertEqual(result,0)
       result = ABS(-1000000000000)
-      self.assertEqual(result,-1000000000000)
+      self.assertEqual(result,1000000000000)
 
    def testABSstring(self):
       with self.assertRaises(TypeError):
@@ -176,21 +176,17 @@ class TestABS(unittest.TestCase):
 class TestRAND(unittest.TestCase):
    def testMULnumber(self):
       result=RAND(5, 10)
-      if result<5 and result>10: TestValue = True
-         else: TestValue = False
+      if result>=5 and result<=10: TestValue = True
+      else: TestValue = False
       self.assertTrue(TestValue)
       result=RAND(-50, -20)
-      if result<-20 and result>-50: TestValue = True
-         else: TestValue = False
+      if result>=-50 and result<=-20: TestValue = True
+      else: TestValue = False
       self.assertTrue(TestValue)
-      result=RAND(100, 10)
-      if result<10 and result>100: TestValue = True
-         else: TestValue = False
-      self.assertTrue(TestValue)
-      result=RAND(500, -500)
-      if result<500 and result>-500: TestValue = True
-         else: TestValue = False
-      self.assertTrue(TestValue)
+      with self.assertRaises(ValueError):
+         RAND(100, 10)
+      with self.assertRaises(ValueError):
+         RAND(500, -500)
 
    def testRANDstring(self):
       with self.assertRaises(TypeError):
