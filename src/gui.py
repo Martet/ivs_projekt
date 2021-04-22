@@ -3,6 +3,7 @@
 
 from tkinter import * # pylint: disable=unused-wildcard-import, method-hidden
 from mathLib import * # pylint: disable=unused-wildcard-import, method-hidden
+from NumberSystems import DECTOBIN, BINTODEC
 
 #slovnik pro vymenu znaku operaci za funkce
 operand_dict = {'+': 'ADD', '-': 'SUB', '*': 'MUL', '÷': 'DIV', '/': 'DIV', '^': 'POW', '√': 'ROOT', '!': 'FACT', 'abs': 'ABS', 'rand': 'RAND'}
@@ -14,15 +15,35 @@ in_sequence = []
 #bool pro ulozeni, jestli je vypis vysledek
 disp_result = False
 
+binary = False
+
 root = Tk()
 root.configure(background='black')
 root.title("Calculator")
 
 #funkce pro vypsani zadanych cisel a operatoru
 def print_disp():
+    global binary, in_sequence, in_number
     entry.delete(0, END)
-    entry.insert(0, ''.join(in_sequence))
-    entry.insert(END, in_number)
+    if binary:
+        for i in in_sequence:
+            if i in operand_dict:
+                entry.insert(END, i)
+            elif not i.isnumeric() or "." in i:
+                entry.delete(0, END)
+                entry.insert(0, "ERROR")
+                in_number = ""
+                in_sequence.clear()
+                return
+            else:
+                entry.insert(END, DECTOBIN(i))
+        if not "." in in_number:
+            entry.insert(END, DECTOBIN(in_number))
+        else:
+            in_number = ""
+    else:
+        entry.insert(0, ''.join(in_sequence))
+        entry.insert(END, in_number)
 
 #funkcia pre vypisovanie cisel na vstupe
 def button_number(number):
@@ -31,7 +52,12 @@ def button_number(number):
         entry.delete(0, END)
         in_number = ""
         disp_result = False
-    in_number += str(number)
+    if binary:
+        tmp = DECTOBIN(str(in_number))
+        tmp += str(number)
+        in_number = BINTODEC(tmp)
+    else:
+        in_number += str(number)
     print_disp()
 
 #pridani nove operace, ulozi predchozi zadane cislo
@@ -50,11 +76,6 @@ def button_operand(operand):
 
     if operand == '!' or operand == 'abs':
         in_number = operand_dict.get(operand) + '(' + in_number + ')'
-    elif operand == 'rand':
-        if in_number == '0':
-            in_number = operand_dict.get(operand) + '()'
-        else:
-            in_number += operand_dict.get(operand) + '()'
     else:
         in_sequence.append(in_number)
         in_sequence.append(operand)
@@ -63,7 +84,7 @@ def button_operand(operand):
     print_disp()
 
 #funkcia pre vymazanie vstupu
-def button_CE():
+def button_ce():
     global in_number, in_sequence
     entry.delete(0, END)
     in_number = ""
@@ -81,7 +102,7 @@ def button_del():
 
 #po stisknuti = provede vypocet
 def button_compute():
-    global in_sequence, in_number, disp_result
+    global in_sequence, in_number, disp_result, binary
     entry.delete(0, END)
     in_sequence.append(in_number if len(in_number) > 0 else '0')
     eval_sequence = ""
@@ -94,7 +115,10 @@ def button_compute():
 
     try:
         result = str(eval(eval_sequence))
-        entry.insert(0, result)
+        if binary:
+            entry.insert(0, DECTOBIN(result))
+        else:
+            entry.insert(0, result)
         in_number = result
         disp_result = True
     except:
@@ -105,57 +129,49 @@ def button_compute():
 #callback pro zpracovani zmacknuti klavesy
 def key_event(event):
     if event.char.isnumeric() or event.char == '.':
-        button_number(event.char)
+        try:
+            button_number(event.char)
+        except:
+            pass
     elif event.char in operand_dict:
         button_operand(event.char)
     elif event.keysym == "BackSpace":
         button_del()
+    elif event.keysym == "Delete":
+        button_ce()
     elif event.keysym == "Return":
         button_compute()
 
 #funkcia na vypinanie a zapinanie tlacidiel pri pracovani s binarnou sustavou
 def switch():
+    global binary
     #vypnutie nepotrebnych tlacidiel
-    if button_random_num["state"] == "normal":
-        button_random_num["state"] = "disabled"
-        button_factorial["state"] = "disabled"
-        button_abs["state"] = "disabled"
-        button_square["state"] = "disabled"
-        button_sqrt["state"] = "disabled"
-        button_divise["state"] = "disabled"
+    if not binary:
         button_7["state"] = "disabled"
         button_8["state"] = "disabled"
         button_9["state"] = "disabled"
-        button_multiply["state"] = "disabled"
         button_4["state"] = "disabled"
         button_5["state"] = "disabled"
         button_6["state"] = "disabled"
-        button_substract["state"] = "disabled"
         button_2["state"] = "disabled"
         button_3["state"] = "disabled"
-        button_add["state"] = "disabled"
         button_dot["state"] = "disabled"
+        binary = True
 
     #zapnutie vsetkych tlacidiel
     else:
-        button_random_num["state"] = "normal"
-        button_factorial["state"] = "normal"
-        button_abs["state"] = "normal"
-        button_square["state"] = "normal"
-        button_sqrt["state"] = "normal"
-        button_divise["state"] = "normal"
         button_7["state"] = "normal"
         button_8["state"] = "normal"
         button_9["state"] = "normal"
-        button_multiply["state"] = "normal"
         button_4["state"] = "normal"
         button_5["state"] = "normal"
         button_6["state"] = "normal"
-        button_substract["state"] = "normal"
         button_2["state"] = "normal"
         button_3["state"] = "normal"
-        button_add["state"] = "normal"
         button_dot["state"] = "normal"
+        binary = False
+
+    print_disp()
 
 
 #vstupne pole
@@ -165,7 +181,7 @@ entry.grid(row=0, column=0, columnspan=4, ipadx=120, ipady=40, sticky=W+E)
 
 #prvy riadok
 button_random_num = Button(root, text='random number', font=('Helvetica', 20), fg='white', padx=26, pady=20, bg='#8600FF', command=lambda: button_operand('rand'))
-button_CE = Button(root, text='CE', font=('Helvetica', 20), fg='white', padx=39, pady=20, bg='#8600FF', command=button_CE)
+button_CE = Button(root, text='CE', font=('Helvetica', 20), fg='white', padx=39, pady=20, bg='#8600FF', command=button_ce)
 button_delete= Button(root, text='delete', font=('Helvetica', 20), fg='white', padx=24, pady=20, bg='#8600FF', command=button_del)
 
 #stlacanie tlacidiel v prvom riadku

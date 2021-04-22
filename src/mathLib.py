@@ -83,7 +83,7 @@ def ABS(x):
 
 def RAND(x, y):
     if (isinstance(x,(int))) and (isinstance(y,(int))): #no floating point
-        if x > y:
+        if x < y:
             result = random.randint(x, y)
             return result
         else:
