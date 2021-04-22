@@ -92,7 +92,7 @@ class TestROOT(unittest.TestCase):
       self.assertTrue(math.isclose(result, 1000, rel_tol=1e-5))
       with self.assertRaises(ValueError):
          ROOT(-5, 4)
-   def testSQRTstring(self):
+   def testROOTstring(self):
       with self.assertRaises(TypeError):
          ROOT("ad",6)
       with self.assertRaises(TypeError):
@@ -142,6 +142,63 @@ class TestPOW(unittest.TestCase):
          POW(6,"ad")
       with self.assertRaises(TypeError):
          POW("ad","ad")
+
+class TestFACT(unittest.TestCase):
+   def testFACTnumber(self):
+      result = FACT(5)
+      self.assertEqual(result,120)
+      result = FACT(-15)
+      with self.assertRaises(TypeError):
+      result = FACT(14)
+      self.assertEqual(result,87178291200)
+      result = FACT(0)
+      self.assertEqual(result,1)
+
+   def testFACTstring(self):
+      with self.assertRaises(TypeError):
+         FACT("ad")
+
+class TestABS(unittest.TestCase):
+   def testABSnumber(self):
+      result = ABS(5)
+      self.assertEqual(result,5)
+      result = ABS(-20)
+      self.assertEqual(result,20)
+      result = ABS(0)
+      self.assertEqual(result,0)
+      result = ABS(-1000000000000)
+      self.assertEqual(result,-1000000000000)
+
+   def testABSstring(self):
+      with self.assertRaises(TypeError):
+         ABS("ad")
+
+class TestRAND(unittest.TestCase):
+   def testMULnumber(self):
+      result=RAND(5, 10)
+      if result<5 and result>10: TestValue = True
+         else: TestValue = False
+      self.assertTrue(TestValue)
+      result=RAND(-50, -20)
+      if result<-20 and result>-50: TestValue = True
+         else: TestValue = False
+      self.assertTrue(TestValue)
+      result=RAND(100, 10)
+      if result<10 and result>100: TestValue = True
+         else: TestValue = False
+      self.assertTrue(TestValue)
+      result=RAND(500, -500)
+      if result<500 and result>-500: TestValue = True
+         else: TestValue = False
+      self.assertTrue(TestValue)
+
+   def testRANDstring(self):
+      with self.assertRaises(TypeError):
+         RAND("ad",6)
+      with self.assertRaises(TypeError):
+         RAND(6,"ad")
+      with self.assertRaises(TypeError):
+         RAND("ad","ad")
 
 if __name__ == '__main__':
    unittest.main()
