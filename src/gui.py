@@ -113,12 +113,50 @@ def key_event(event):
     elif event.keysym == "Return":
         button_compute()
 
+#funkcia na vypinanie a zapinanie tlacidiel pri pracovani s binarnou sustavou
+def switch():
+    #vypnutie nepotrebnych tlacidiel
+    if button_random_num["state"] == "normal":
+        button_random_num["state"] = "disabled"
+        button_factorial["state"] = "disabled"
+        button_abs["state"] = "disabled"
+        button_square["state"] = "disabled"
+        button_sqrt["state"] = "disabled"
+        button_divise["state"] = "disabled"
+        button_7["state"] = "disabled"
+        button_8["state"] = "disabled"
+        button_9["state"] = "disabled"
+        button_multiply["state"] = "disabled"
+        button_2["state"] = "disabled"
+        button_3["state"] = "disabled"
+        button_add["state"] = "disabled"
+        button_dot["state"] = "disabled"
+
+    #zapnutie vsetkych tlacidiel
+    else:
+        button_random_num["state"] = "normal"
+        button_factorial["state"] = "normal"
+        button_abs["state"] = "normal"
+        button_square["state"] = "normal"
+        button_sqrt["state"] = "normal"
+        button_divise["state"] = "normal"
+        button_7["state"] = "normal"
+        button_8["state"] = "normal"
+        button_9["state"] = "normal"
+        button_multiply["state"] = "normal"
+        button_2["state"] = "normal"
+        button_3["state"] = "normal"
+        button_add["state"] = "normal"
+        button_dot["state"] = "normal"
+
+
 #vstupne pole
-entry = Entry(root, width=8, borderwidth=10, font=('Helvetica', 80), fg='white', bg='#6F00D2', takefocus = 0)
-entry.grid(row=0, column=0, columnspan=4, padx=10, pady=10)
+entry = Entry(root, width=8, borderwidth=10, font=('Helvetica', 40), fg='white', bg='#6F00D2', takefocus = 0)
+entry.grid(row=0, column=0, columnspan=4, ipadx=120, ipady=40)
+
 
 #prvy riadok
-button_random_num = Button(root, text='random number', font=('Helvetica', 20), fg='white', padx=26.5, pady=20, bg='#8600FF', command=lambda: button_operand('rand'))
+button_random_num = Button(root, text='random number', font=('Helvetica', 20), fg='white', padx=26, pady=20, bg='#8600FF', command=lambda: button_operand('rand'))
 button_CE = Button(root, text='CE', font=('Helvetica', 20), fg='white', padx=39, pady=20, bg='#8600FF', command=button_CE)
 button_delete= Button(root, text='delete', font=('Helvetica', 20), fg='white', padx=24, pady=20, bg='#8600FF', command=button_del)
 
@@ -129,67 +167,78 @@ button_delete.grid(row=1, column=3)
 
 
 #druhy riadok
-button_abs = Button(root, text='|abs|', font=('Helvetica', 20), fg='white', padx=29, pady=20, bg='#921AFF', command=lambda: button_operand('abs'))
-button_square = Button(root, text='x^n', font=('Helvetica', 20), fg='white', padx=37, pady=20, bg='#921AFF', command=lambda: button_operand('^'))
-button_sqrt = Button(root, text='√', font=('Helvetica', 20), fg='white', padx=52, pady=20, bg='#921AFF', command=lambda: button_operand('√'))
-button_divise = Button(root, text='÷', font=('Helvetica', 20), fg='white', padx=53, pady=20, bg='#921AFF', command=lambda: button_operand('÷'))
+button_bin_to_dec = Button(root, text='BIN -> DEC', font=('Helvetica', 20), fg='white', padx=51, pady=20, bg='#921AFF', command=switch)
+button_factorial = Button(root, text='!', font=('Helvetica', 20), fg='white', padx=54, pady=20, bg='#921AFF')
+button_manual = Button(root, text='manual', font=('Helvetica', 20), fg='white', padx=16, pady=20, bg='#921AFF')
 
 #stlacanie tlacidiel v druhom riadku
-button_abs.grid(row=2, column=0)
-button_square.grid(row=2, column=1)
-button_sqrt.grid(row=2, column=2)
-button_divise.grid(row=2, column=3)
+button_bin_to_dec.grid(row=2, column=0, columnspan=2)
+button_factorial.grid(row=2, column=2)
+button_manual.grid(row=2, column=3)
 
 
 #treti riadok
-button_7 = Button(root, text='7', font=('Helvetica', 20), fg='white', padx=50, pady=20, bg='#9F35FF', command=lambda: button_number(7))
-button_8 = Button(root, text='8', font=('Helvetica', 20), fg='white', padx=50, pady=20, bg='#9F35FF', command=lambda: button_number(8))
-button_9 = Button(root, text='9', font=('Helvetica', 20), fg='white', padx=50, pady=20, bg='#9F35FF', command=lambda: button_number(9))
-button_multiply = Button(root, text='*', font=('Helvetica', 20), fg='white', padx=54, pady=20, bg='#9F35FF', command=lambda: button_operand('*'))
+button_abs = Button(root, text='|abs|', font=('Helvetica', 20), fg='white', padx=29, pady=20, bg='#9F35FF', command=lambda: button_operand('abs'))
+button_square = Button(root, text='x^n', font=('Helvetica', 20), fg='white', padx=37, pady=20, bg='#9F35FF', command=lambda: button_operand('^'))
+button_sqrt = Button(root, text='√', font=('Helvetica', 20), fg='white', padx=52, pady=20, bg='#9F35FF', command=lambda: button_operand('√'))
+button_divise = Button(root, text='÷', font=('Helvetica', 20), fg='white', padx=52, pady=20, bg='#9F35FF', command=lambda: button_operand('÷'))
 
 #stlacanie tlacidiel v tretom riadku
-button_7.grid(row=3 , column=0)
-button_8.grid(row=3 , column=1)
-button_9.grid(row=3 , column=2)
-button_multiply.grid(row=3, column=3)
+button_abs.grid(row=3, column=0)
+button_square.grid(row=3, column=1)
+button_sqrt.grid(row=3, column=2)
+button_divise.grid(row=3, column=3)
 
 
 #stvrty riadok
-button_4 = Button(root, text='4', font=('Helvetica', 20), fg='white', padx=50, pady=20, bg='#B15BFF', command=lambda: button_number(4))
-button_5 = Button(root, text='5', font=('Helvetica', 20), fg='white', padx=50, pady=20, bg='#B15BFF', command=lambda: button_number(5))
-button_6 = Button(root, text='6', font=('Helvetica', 20), fg='white', padx=50, pady=20, bg='#B15BFF', command=lambda: button_number(6))
-button_substract = Button(root, text='-', font=('Helvetica', 20), fg='white', padx=56, pady=20, bg='#B15BFF', command=lambda: button_operand('-'))
+button_7 = Button(root, text='7', font=('Helvetica', 20), fg='white', padx=50, pady=20, bg='#B15BFF', command=lambda: button_number(7))
+button_8 = Button(root, text='8', font=('Helvetica', 20), fg='white', padx=50, pady=20, bg='#B15BFF', command=lambda: button_number(8))
+button_9 = Button(root, text='9', font=('Helvetica', 20), fg='white', padx=50, pady=20, bg='#B15BFF', command=lambda: button_number(9))
+button_multiply = Button(root, text='*', font=('Helvetica', 20), fg='white', padx=55, pady=20, bg='#B15BFF', command=lambda: button_operand('*'))
 
 #stlacanie tlacidiel v stvrtom riadku
-button_4.grid(row=4 , column=0)
-button_5.grid(row=4 , column=1)
-button_6.grid(row=4 , column=2)
-button_substract.grid(row=4, column=3)
+button_7.grid(row=4 , column=0)
+button_8.grid(row=4 , column=1)
+button_9.grid(row=4 , column=2)
+button_multiply.grid(row=4, column=3)
 
 
 #piaty riadok
-button_1 = Button(root, text='1', font=('Helvetica', 20), fg='white', padx=50, pady=20, bg='#BE77FF', command=lambda: button_number(1))
-button_2 = Button(root, text='2', font=('Helvetica', 20), fg='white', padx=50, pady=20, bg='#BE77FF', command=lambda: button_number(2))
-button_3 = Button(root, text='3', font=('Helvetica', 20), fg='white', padx=50, pady=20, bg='#BE77FF', command=lambda: button_number(3))
-button_add = Button(root, text='+', font=('Helvetica', 20), fg='white', padx=53, pady=20, bg='#BE77FF', command=lambda: button_operand('+'))
+button_4 = Button(root, text='4', font=('Helvetica', 20), fg='white', padx=50, pady=20, bg='#BE77FF', command=lambda: button_number(4))
+button_5 = Button(root, text='5', font=('Helvetica', 20), fg='white', padx=50, pady=20, bg='#BE77FF', command=lambda: button_number(5))
+button_6 = Button(root, text='6', font=('Helvetica', 20), fg='white', padx=50, pady=20, bg='#BE77FF', command=lambda: button_number(6))
+button_substract = Button(root, text='-', font=('Helvetica', 20), fg='white', padx=56, pady=20, bg='#BE77FF', command=lambda: button_operand('-'))
 
 #stlacanie tlacidiel v piatom riadku
+button_4.grid(row=5 , column=0)
+button_5.grid(row=5 , column=1)
+button_6.grid(row=5 , column=2)
+button_substract.grid(row=5, column=3)
+
+
+#siesty riadok
+button_1 = Button(root, text='1', font=('Helvetica', 20), fg='white', padx=50, pady=20, bg='#CA8EFF', command=lambda: button_number(1))
+button_2 = Button(root, text='2', font=('Helvetica', 20), fg='white', padx=50, pady=20, bg='#CA8EFF', command=lambda: button_number(2))
+button_3 = Button(root, text='3', font=('Helvetica', 20), fg='white', padx=50, pady=20, bg='#CA8EFF', command=lambda: button_number(3))
+button_add = Button(root, text='+', font=('Helvetica', 20), fg='white', padx=52, pady=20, bg='#CA8EFF', command=lambda: button_operand('+'))
+
+#stlacanie tlacidiel v siestom riadku
 button_1.grid(row=5 , column=0)
 button_2.grid(row=5 , column=1)
 button_3.grid(row=5 , column=2)
 button_add.grid(row=5, column=3)
 
 
-#siesty-posledny riadok
-button_0 = Button(root, text='0', font=('Helvetica', 20), fg='white', padx=50, pady=20, bg='#CA8EFF', command=lambda: button_number(0))
-button_dot = Button(root, text='.', font=('Helvetica', 20), fg='white', padx=54, pady=20, bg='#CA8EFF', command=lambda: button_number('.'))
-button_equal = Button(root, text='=', font=('Helvetica', 20), fg='white', padx=117, pady=20, bg='#CA8EFF', command=button_compute)
+#siedmy-posledny riadok
+button_0 = Button(root, text='0', font=('Helvetica', 20), fg='white', padx=50, pady=20, bg='#d3a4ff', command=lambda: button_number(0))
+button_dot = Button(root, text='.', font=('Helvetica', 20), fg='white', padx=54, pady=20, bg='#d3a4ff', command=lambda: button_number('.'))
+button_equal = Button(root, text='=', font=('Helvetica', 20), fg='white', padx=115, pady=20, bg='#d3a4ff', command=button_compute)
 
-#stlacanie tlacidiel v siestom-poslednom riadku
+#stlacanie tlacidiel v siedmom-poslednom riadku
 button_0.grid(row=6, column=1)
 button_dot.grid(row=6, column=0)
 button_equal.grid(row=6, column=2, columnspan=2)
 
 
-root.bind("<Key>", key_event) 
+root.bind("<Key>", key_event)
 root.mainloop()
