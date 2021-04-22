@@ -109,9 +109,15 @@ def button_compute():
     if len(in_sequence) == 1:
         eval_sequence = in_sequence[0]
     else:
-        eval_sequence = operand_dict.get(in_sequence[1]) + '(' + in_sequence[0] + ', ' + in_sequence[2] + ')'
+        if in_sequence[1] == '√':
+            eval_sequence = operand_dict.get(in_sequence[1]) + '(' + in_sequence[2] + ', ' + in_sequence[0] + ')'
+        else:
+            eval_sequence = operand_dict.get(in_sequence[1]) + '(' + in_sequence[0] + ', ' + in_sequence[2] + ')'
         for i in range(3, len(in_sequence), 2):
-            eval_sequence = operand_dict.get(in_sequence[i]) + '(' + eval_sequence + ', ' + in_sequence[i + 1] + ')'
+            if in_sequence[i] == '√':
+                eval_sequence = operand_dict.get(in_sequence[i]) + '(' + in_sequence[i + 1] + ', ' + eval_sequence + ')'
+            else:
+                eval_sequence = operand_dict.get(in_sequence[i]) + '(' + eval_sequence + ', ' + in_sequence[i + 1] + ')'
 
     try:
         result = str(eval(eval_sequence))
