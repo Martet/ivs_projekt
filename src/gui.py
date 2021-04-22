@@ -2,7 +2,7 @@
 # coding: utf-8
 
 from tkinter import * # pylint: disable=unused-wildcard-import, method-hidden
-from math import * # pylint: disable=unused-wildcard-import, method-hidden
+from mathLib import * # pylint: disable=unused-wildcard-import, method-hidden
 
 #slovnik pro vymenu znaku operaci za funkce
 operand_dict = {'+': 'ADD', '-': 'SUB', '*': 'MUL', '÷': 'DIV', '/': 'DIV', '^': 'POW', '√': 'ROOT', '!': 'FACT', 'abs': 'ABS', 'rand': 'RAND'}
