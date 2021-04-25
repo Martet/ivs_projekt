@@ -3,8 +3,10 @@
 
 from tkinter import * # pylint: disable=unused-wildcard-import, method-hidden
 from mathLib import * # pylint: disable=unused-wildcard-import, method-hidden
-import subprocess
 from NumberSystems import DECTOBIN, BINTODEC
+import subprocess
+import os
+import sys
 
 #slovnik pro vymenu znaku operaci za funkce
 operand_dict = {'+': 'ADD', '-': 'SUB', '*': 'MUL', '÷': 'DIV', '/': 'DIV', '^': 'POW', '√': 'ROOT', '!': 'FACT', 'abs': 'ABS', 'rand': 'RAND'}
@@ -162,7 +164,7 @@ def key_event(event):
 
 #funkcia na otvorenie manualu
 def open_manual():
-    subprocess.Popen(["manual.pdf"], shell=True)
+    subprocess.Popen(["xdg-open " + get_path("res/manual.pdf")], shell=True)
 
 #funkcia na vypinanie a zapinanie tlacidiel pri pracovani s binarnou sustavou
 def switch():
@@ -195,6 +197,10 @@ def switch():
 
     print_disp()
 
+def get_path(relative):
+    if hasattr(sys, '_MEIPASS'):
+        return os.path.join(sys._MEIPASS, relative)
+    return os.path.join(os.path.abspath("."), relative)
 
 #vstupne pole
 entry = Entry(root, width=8, borderwidth=10, font=('Helvetica', 40), fg='white', bg='#6F00D2', takefocus = 0)
@@ -285,6 +291,6 @@ button_0.grid(row=7, column=1, sticky=W+E)
 button_dot.grid(row=7, column=0, sticky=W+E)
 button_equal.grid(row=7, column=2, columnspan=2, sticky=W+E)
 
-
+root.tk.call('wm', 'iconphoto', root._w, PhotoImage(file=get_path('res/logo.png')))
 root.bind("<Key>", key_event)
 root.mainloop()

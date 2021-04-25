@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=Kalkulacka
+Comment=Jednoducha kalkulacka s uzivatelskym rozhranim.
+Exec=/usr/local/bin/kalkulacka
+Icon=/usr/share/icons/hicolor/405x405/kalk_logo.png
+Terminal=false
+Type=Application
+Categories=Utility;
