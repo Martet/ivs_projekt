@@ -1,0 +1,5 @@
+Package: kalkulacka
+Version: 1.0
+Architecture: all
+Maintainer: Martin Zmitko <xzmitk01@stud.fit.vutbr.cz>
+Description: Jednoducha kalkulacka s uzivatelskym rozhranim.
