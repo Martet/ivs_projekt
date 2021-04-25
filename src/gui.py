@@ -3,6 +3,7 @@
 
 from tkinter import * # pylint: disable=unused-wildcard-import, method-hidden
 from mathLib import * # pylint: disable=unused-wildcard-import, method-hidden
+import subprocess
 from NumberSystems import DECTOBIN, BINTODEC
 
 #slovnik pro vymenu znaku operaci za funkce
@@ -20,6 +21,17 @@ binary = False
 root = Tk()
 root.configure(background='black')
 root.title("Calculator")
+
+#cyklus pre zmenu velkosti riadkov
+for row_number in range(1, 8):
+    Grid.rowconfigure(root, row_number, weight=1)
+
+#cyklus pre zmenu velkosti stlpcov
+for column_number in range(1, 4):
+    Grid.columnconfigure(root, column_number, weight=1)
+
+#obmedzenie zmensovania
+root.wm_minsize(400, 500)
 
 #funkce pro vypsani zadanych cisel a operatoru
 def print_disp():
@@ -148,6 +160,10 @@ def key_event(event):
     elif event.keysym == "Return":
         button_compute()
 
+#funkcia na otvorenie manualu
+def open_manual():
+    subprocess.Popen(["manual.pdf"], shell=True)
+
 #funkcia na vypinanie a zapinanie tlacidiel pri pracovani s binarnou sustavou
 def switch():
     global binary
@@ -198,8 +214,8 @@ button_delete.grid(row=1, column=3, sticky=W+E)
 
 #druhy riadok
 button_bin_to_dec = Button(root, text='BIN -> DEC', font=('Helvetica', 20), fg='white', padx=51, pady=20, bg='#921AFF', command=switch)
-button_factorial = Button(root, text='!', font=('Helvetica', 20), fg='white', padx=54, pady=20, bg='#921AFF')
-button_manual = Button(root, text='manual', font=('Helvetica', 20), fg='white', padx=16, pady=20, bg='#921AFF')
+button_factorial = Button(root, text='!', font=('Helvetica', 20), fg='white', padx=54, pady=20, bg='#921AFF', command=lambda: button_operand('!'))
+button_manual = Button(root, text='manual', font=('Helvetica', 20), fg='white', padx=16, pady=20, bg='#921AFF', command=open_manual)
 
 #stlacanie tlacidiel v druhom riadku
 button_bin_to_dec.grid(row=2, column=0, columnspan=2, sticky=W+E)
