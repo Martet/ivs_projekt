@@ -1,5 +1,7 @@
+Source: kalkulacka
 Package: kalkulacka
 Version: 1.0
 Architecture: all
 Maintainer: Martin Zmitko <xzmitk01@stud.fit.vutbr.cz>
 Description: Jednoducha kalkulacka s uzivatelskym rozhranim.
+Depends: libc6 (>= 2.7), zlib1g (>= 1:1.1.4)

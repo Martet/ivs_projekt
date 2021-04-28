@@ -1,0 +1,4 @@
+Vystup profilingu je v vystup.txt, byl pouzit Python profiler cProfile.
+
+Z vystupu je videt, ze program travi nejdele na funkcich ADD a POW, davalo by tedy smysl snazit se je zoptimalizovat.
+Tyto funkce take travi hodne casu na volani funkce isinstance(), takze by bylo vhodne toto volani zoptimalizovat, aby se nevolalo pri kazdem vypoctu.

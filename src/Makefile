@@ -6,6 +6,7 @@ dist/gui: gui.py NumberSystems.py mathLib.py
 	pyinstaller -F -i "logo.png" --add-data "res/:res/" gui.py
 
 kalkulacka_1.0-1_all.deb: dist/gui
+	mkdir -p kalkulacka_1.0-1_all/usr/local/bin
 	cp dist/gui kalkulacka_1.0-1_all/usr/local/bin/kalkulacka
 	dpkg-deb --build --root-owner-group kalkulacka_1.0-1_all
 
