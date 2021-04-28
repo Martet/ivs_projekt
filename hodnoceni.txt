@@ -1,0 +1,4 @@
+xdoupo00 75 (vytvoření knihovny + aritmetické operace, doxygen (dokumentace), generování náhodných čísel)
+xlipta04 75 (uživatelské rozhraní [návrh + realizace], prezentace)
+xvopal04 75 (testy, více číselných soustav, manuál)
+xzmitk01 175 (makefile, od/instalátor, profilling, ovládání, integrace částí, správa repozitáře)
