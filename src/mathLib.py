@@ -1,12 +1,12 @@
-import math
-import random
-
-"""!
+"""!@package mathLib
     @brief Library dedicated to basic arithmetical functions
 
     Mathematical library containing ADD, SUB, MUL, DIV, POW, SQRT, ROOT, FACT, ABS and RAND functions
     @date April 2021
 """
+
+import math
+import random
 
 def ADD(x, y):
     """!

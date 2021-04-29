@@ -1,5 +1,8 @@
-#!/usr/local/bin/python3
-# coding: utf-8
+"""!@package gui
+    @brief A simple calculator with an user interface written in python using tkinter.
+
+    @date April 2021
+"""
 
 from tkinter import * # pylint: disable=unused-wildcard-import, method-hidden
 from mathLib import * # pylint: disable=unused-wildcard-import, method-hidden
@@ -8,16 +11,20 @@ import subprocess
 import os
 import sys
 
-#slovnik pro vymenu znaku operaci za funkce
+
+##  slovnik pro vymenu znaku operaci za funkce
 operand_dict = {'+': 'ADD', '-': 'SUB', '*': 'MUL', '÷': 'DIV', '/': 'DIV', '^': 'POW', '√': 'ROOT', '!': 'FACT', 'abs': 'ABS', 'rand': 'RAND'}
 
-#string pro ulozeni posledniho zadavaneho cisla
+##  string pro ulozeni posledniho zadavaneho cisla
 in_number = ""
-#list pro ulozeni postupne sekvence zadanych cisel a operaci jako stringy
+
+##  list pro ulozeni postupne sekvence zadanych cisel a operaci jako stringy
 in_sequence = []
-#bool pro ulozeni, jestli je vypis vysledek
+
+##  bool pro ulozeni, jestli je vypis vysledek
 disp_result = False
 
+##  bool pro ulozeni, jestli je binarni mod zadavani
 binary = False
 
 root = Tk()
@@ -35,7 +42,7 @@ for column_number in range(1, 4):
 #obmedzenie zmensovania
 root.wm_minsize(400, 500)
 
-#funkce pro vypsani zadanych cisel a operatoru
+##  funkce pro vypsani zadanych cisel a operatoru
 def print_disp():
     global binary, in_sequence, in_number
     entry.delete(0, END)
@@ -59,7 +66,8 @@ def print_disp():
         entry.insert(0, ''.join(in_sequence))
         entry.insert(END, in_number)
 
-#funkcia pre vypisovanie cisel na vstupe
+##  funkcia pre vypisovanie cisel na vstupe
+#   @param number zadane cislo
 def button_number(number):
     global in_number, disp_result
     if entry.get() == "ERROR" or disp_result:
@@ -74,7 +82,8 @@ def button_number(number):
         in_number += str(number)
     print_disp()
 
-#pridani nove operace, ulozi predchozi zadane cislo
+##  pridani nove operace, ulozi predchozi zadane cislo
+#   @param operand zadany operand
 def button_operand(operand):
     global in_number, disp_result
     if entry.get() == "ERROR":
@@ -97,14 +106,14 @@ def button_operand(operand):
 
     print_disp()
 
-#funkcia pre vymazanie vstupu
+##  funkcia pre vymazanie vstupu
 def button_ce():
     global in_number, in_sequence
     entry.delete(0, END)
     in_number = ""
     in_sequence.clear()
 
-#smaze posledni zadane cislo nebo operaci
+##  smaze posledni zadane cislo nebo operaci
 def button_del():
     global in_number, in_sequence
     if len(in_number) > 0:
@@ -114,7 +123,7 @@ def button_del():
             in_sequence.pop()
     print_disp()
 
-#po stisknuti = provede vypocet
+##  po stisknuti = provede vypocet
 def button_compute():
     global in_sequence, in_number, disp_result, binary
     entry.delete(0, END)
@@ -146,7 +155,8 @@ def button_compute():
         in_number = ""
     in_sequence.clear()
 
-#callback pro zpracovani zmacknuti klavesy
+##  callback pro zpracovani zmacknuti klavesy
+#   @param event zmacknuta klavesa
 def key_event(event):
     if event.char.isnumeric() or event.char == '.':
         try:
@@ -162,11 +172,11 @@ def key_event(event):
     elif event.keysym == "Return":
         button_compute()
 
-#funkcia na otvorenie manualu
+##  funkcia na otvorenie manualu
 def open_manual():
     subprocess.Popen(["xdg-open " + get_path("res/manual.pdf")], shell=True)
 
-#funkcia na vypinanie a zapinanie tlacidiel pri pracovani s binarnou sustavou
+##  funkcia na vypinanie a zapinanie tlacidiel pri pracovani s binarnou sustavou
 def switch():
     global binary
     #vypnutie nepotrebnych tlacidiel
@@ -197,6 +207,9 @@ def switch():
 
     print_disp()
 
+##  funkce pro vraceni spravne cesty res souboru
+#   @param relative relativni cesta k souboru
+#   @return absolutni cesta k souboru
 def get_path(relative):
     if hasattr(sys, '_MEIPASS'):
         return os.path.join(sys._MEIPASS, relative)

@@ -1,3 +1,11 @@
+"""!@package NumberSystems
+    @brief A interface for conversions between binary and decimal.
+
+    @date April 2021
+"""
+
+##  Converts decimal number to binary
+#   @param num number to convert as string
 def DECTOBIN(num):
     if not num.isnumeric():
         return ""
@@ -10,6 +18,8 @@ def DECTOBIN(num):
         num = num // 2
     return "".join(list(map(str, result)))
 
+##  Converts binary number to decimal
+#   @param num number to convert as string
 def BINTODEC(num):
     if not num.isnumeric():
         return ""
